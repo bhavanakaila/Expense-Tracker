@@ -1,0 +1,142 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* General styling for the body */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Container for the whole app */
+  .container {
+    background-color: #fff;
+    width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading */
+  h1 {
+    text-align: center;
+    color: #4CAF50;
+  }
+  
+  /* Balance section */
+  .balance {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #balance {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  /* Summary section */
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .summary div {
+    text-align: center;
+  }
+  
+  .summary h4 {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .summary p {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .summary #income {
+    color: #4CAF50;
+  }
+  
+  .summary #expense {
+    color: #FF5733;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  form input[type="text"] {
+    font-size: 1em;
+  }
+  
+  form input[type="number"] {
+    font-size: 1em;
+  }
+  
+  form button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Transaction history */
+  h3 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  #transaction-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  #transaction-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #transaction-list li span {
+    font-size: 1em;
+  }
+  
+  #transaction-list li.income {
+    color: #4CAF50;
+  }
+  
+  #transaction-list li.expense {
+    color: #FF5733;
+  }
+  
