@@ -1,4 +1,3 @@
-// Get references to the DOM elements
 const balanceElement = document.getElementById('balance');
 const incomeElement = document.getElementById('income');
 const expenseElement = document.getElementById('expense');
@@ -7,34 +6,12 @@ const transactionForm = document.getElementById('transaction-form');
 const textInput = document.getElementById('text');
 const amountInput = document.getElementById('amount');
 
-// Initialize variables
+// State
 let transactions = [];
-let balance = 0;
-let income = 0;
-let expense = 0;
 
-// Function to update the UI (balance, income, expense)
-function updateUI() {
-  balanceElement.textContent = `₹${balance}`;
-  incomeElement.textContent = `₹${income}`;
-  expenseElement.textContent = `₹${expense}`;
-
-  // Update transaction history
-  transactionList.innerHTML = '';
-  transactions.forEach((transaction, index) => {
-    const li = document.createElement('li');
-    li.classList.add(transaction.amount > 0 ? 'income' : 'expense');
-    li.innerHTML = `
-      <span>${transaction.description}</span>
-      <span>₹${transaction.amount}</span>
-    `;
-    transactionList.appendChild(li);
-  });
-}
-
-// Function to handle form submission
-function addTransaction(event) {
-  event.preventDefault();
+// Add transaction
+function addTransaction(e) {
+  e.preventDefault();
 
   const description = textInput.value.trim();
   const amount = parseFloat(amountInput.value.trim());
@@ -44,31 +21,59 @@ function addTransaction(event) {
     return;
   }
 
-  // Add the transaction to the array
   const newTransaction = {
-    description: description,
-    amount: amount
+    id: Date.now(),
+    description,
+    amount
   };
+
   transactions.push(newTransaction);
 
-  // Update the balance, income, and expense
-  balance += amount;
-  if (amount > 0) {
-    income += amount;
-  } else {
-    expense += Math.abs(amount);
-  }
-
-  // Reset input fields
   textInput.value = '';
   amountInput.value = '';
 
-  // Update the UI
   updateUI();
 }
 
-// Attach event listener to the form
+// Delete transaction
+function deleteTransaction(id) {
+  transactions = transactions.filter(transaction => transaction.id !== id);
+  updateUI();
+}
+
+// Update UI
+function updateUI() {
+  // Reset values
+  let balance = 0, income = 0, expense = 0;
+
+  transactionList.innerHTML = '';
+
+  transactions.forEach(transaction => {
+    const sign = transaction.amount > 0 ? 'income' : 'expense';
+    const li = document.createElement('li');
+    li.classList.add(sign);
+    li.innerHTML = `
+      <span>${transaction.description}</span>
+      <span>₹${transaction.amount}</span>
+      <button class="delete-btn" onclick="deleteTransaction(${transaction.id})">❌</button>
+    `;
+    transactionList.appendChild(li);
+
+    balance += transaction.amount;
+    if (transaction.amount > 0) {
+      income += transaction.amount;
+    } else {
+      expense += Math.abs(transaction.amount);
+    }
+  });
+
+  balanceElement.textContent = `₹${balance}`;
+  incomeElement.textContent = `₹${income}`;
+  expenseElement.textContent = `₹${expense}`;
+}
+
+// Event listener
 transactionForm.addEventListener('submit', addTransaction);
 
-// Initial call to update the UI (in case there's any pre-existing data)
+// Initial render
 updateUI();
